@@ -1,4 +1,5 @@
-# Implementation of Face Mask Detector with Deep Learning
+# Face Mask Detector with Deep Learning
+Implementation of Face Mask Detector with OpenCV, Keras/TensorFlow, and Deep Learning
 
 ## Purpose &amp; Application
 
