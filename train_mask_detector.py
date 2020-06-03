@@ -29,9 +29,9 @@ ap.add_argument("-m", "--model", type=str, default="mask_detector.model", help="
 args = vars(ap.parse_args())
 
 # initialize the initial learning rate, number of epochs to train for, and batch size
-INIT_LR = 1e-4
+INIT_LEARNING_RATE = 1e-5
 EPOCHS = 20
-BS = 32
+BATCH_SIZE = 32
 
 # grab the list of images in our dataset directory, then initialize
 # the list of data (i.e., images) and class images
@@ -79,8 +79,7 @@ aug = ImageDataGenerator(rotation_range=20,
 # load the MobileNetV2 network, ensuring the head FC layer sets are left off
 baseModel = MobileNetV2(weights="imagenet", include_top=False, input_tensor=Input(shape=(224, 224, 3)))
 
-# construct the head of the model that will be placed on top of the
-# the base model
+# construct the head of the model that will be placed on top of the base model
 headModel = baseModel.output
 headModel = AveragePooling2D(pool_size=(7, 7))(headModel)
 headModel = Flatten(name="flatten")(headModel)
@@ -99,20 +98,20 @@ for layer in baseModel.layers:
 
 # compile our model
 print("[INFO] compiling model...")
-opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
+opt = Adam(lr=INIT_LEARNING_RATE, decay=INIT_LEARNING_RATE / EPOCHS)
 model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
 
 # train the head of the network
 print("[INFO] training head...")
-H = model.fit(aug.flow(trainX, trainY, batch_size=BS),
-              steps_per_epoch=len(trainX) // BS,
+H = model.fit(aug.flow(trainX, trainY, batch_size=BATCH_SIZE),
+              steps_per_epoch=len(trainX) // BATCH_SIZE,
               validation_data=(testX, testY),
-              validation_steps=len(testX) // BS,
+              validation_steps=len(testX) // BATCH_SIZE,
               epochs=EPOCHS)
 
 # make predictions on the testing set
 print("[INFO] evaluating network...")
-predIdxs = model.predict(testX, batch_size=BS)
+predIdxs = model.predict(testX, batch_size=BATCH_SIZE)
 
 # for each image in the testing set we need to find the index of the
 # label with corresponding largest predicted probability
