@@ -124,6 +124,12 @@ Training parameters
 
 ## How to run code
 
+First, make sure required modules are install by running, then follow 3-steps given below to train and predict mask in static image or video stream.
+
+```shell script
+pip install -r requirements.txt
+```
+
 **Step 1:** Train model
 
 ```shell script
