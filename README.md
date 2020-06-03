@@ -1,12 +1,12 @@
-#Implementation of Face Mask Detector with Deep Learning
+# Implementation of Face Mask Detector with Deep Learning
 
-##Purpose &amp; Application
+## Purpose &amp; Application
 
 The purpose of this system is to implement custom deep learning model to detect person with mask, or person with no mask.
 
 Typical application is to implement on mobile for personal safety (static images), and monitor crowds during COVID-19 pandemic (video stream).
 
-##Two-Phase Mask Detector
+## Two-Phase Mask Detector
 
 **Phase 1**
 - Load face mask dataset
@@ -20,13 +20,13 @@ Typical application is to implement on mobile for personal safety (static images
 - Apply classifier to each face ROI to determine “mask” or “no mask”
 - Show results
 
-##Dataset
+## Dataset
 
 Publicly available [images dataset](https://github.com/prajnasb/observations/tree/master/experiements/data) is used to train the model. It contain 1,376 images belonging to two classes: 690 images *with_mask* and 686 images *without_mask*.
 
 It is pertinent to note that person with masks are different from person without mask, otherwise model becomes heavily biased and fails to generalize.
 
-###How is dataset created?
+### How is dataset created?
 
 - Take image of person without mask
 - Find facial landmarks (eyes, eyebrows, nose, mouth, jawline)
@@ -41,7 +41,7 @@ It is pertinent to note that person with masks are different from person without
 ![Images with Mask](resources/7.png "Images with Mask")
 
 
-###Steps to Create Dataset
+### Steps to Create Dataset
 
 Get image of person without mask
 
@@ -67,7 +67,7 @@ Image of person with mask
 
 ![Image of person with mask](resources/6.jpg "Image of person with mask")
 
-##Model
+## Model
 
 MobileNetV2 is a general architecture
 - can use different input layer size and different width factors
@@ -79,7 +79,7 @@ Similar to the original MobileNet
 - supports any input size greater than 32 x 32
 - larger image sizes offer better performance
 
-##Implementation
+## Implementation
 
 Uses `tensorflow.keras`
 - Date augmentation (rotate, zoom, height/width shift, shear, horizontal flip)
@@ -97,13 +97,13 @@ Uses `imutils` to find and list image in dataset
 
 Uses `matplotlib` to plot training loss and accuracy curves
 
-##Hyper-Parameters
+## Hyper-Parameters
 
 - Initial learning rate: 10<sup>-5</sup>
 - Epochs: 20
 - Batch size: 32
 
-##Custom MobileNetV2 architecture
+## Custom MobileNetV2 architecture
 
 Image input: 224x224 (3-channel)
 
@@ -121,7 +121,7 @@ Training parameters
 - Optimizer: Adam (computationally efficient, little memory requirement)
 - Metrics: accuracy
 
-##How to run code
+## How to run code
 
 **Step 1:** Train model
 
@@ -141,7 +141,7 @@ python detect_mask_image.py --image examples/example_01.png
 python detect_mask_video.py
 ```
 
-##System Specification
+## System Specification
 
 | Infrastructure | Specification |
 | --- | --- |
@@ -151,7 +151,7 @@ python detect_mask_video.py
 | GPU | GeForce 830M (2 GB), Compute Capability 5.0 |
 | CUDA | Toolkit version 10.1.243, Driver version 446.14 |
 
-##Classification Report
+## Classification Report
 
 | &nbsp; | Loss | Validation |
 | --- | ---: | ---: |
@@ -160,7 +160,7 @@ python detect_mask_video.py
 
 ![Classification Report](resources/plot.png "Classification Report")
 
-##Limitations
+## Limitations
 
 | Limitation | Reason | Way Forward |
 | --- | --- | --- |
