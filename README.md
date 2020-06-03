@@ -160,7 +160,7 @@ python detect_mask_video.py
 
 ## Classification Report
 
-| &nbsp; | Loss | Validation |
+| &nbsp; | Loss | Accuracy |
 | --- | ---: | ---: |
 | **Training** | 0.1037 | 0.9747 |
 | **Validation** | 0.0656 | 0.9891 |
